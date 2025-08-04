@@ -26,14 +26,14 @@ jobs:
 
       - name: Build and Push Docker image
         run: |
-          IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-app
+          IMAGE_NAME=gcr.io/zippy-rarity-468010-a3/my-app
           docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
 
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy my-app \
-            --image=gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-app \
-            --region=${{ secrets.GCP_REGION }} \
+            --image=gcr.io/zippy-rarity-468010-a3/my-app \
+            --region=us-central1 \
             --platform=managed \
             --allow-unauthenticated
