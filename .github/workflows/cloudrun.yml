@@ -26,16 +26,16 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t us-docker.pkg.dev/zippy-rarity-468010-a3/cloudrun:latest .
+          docker build -t us-docker.pkg.dev/zippy-rarity-468010-a3/cloudrun/test:latest .
 
       - name: Push Docker image to Artifact Registry
         run: |
-          docker push us-docker.pkg.dev/zippy-rarity-468010-a3/cloudrun:latest
+          docker push us-docker.pkg.dev/zippy-rarity-468010-a3/cloudrun/test:latest
 
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy my-app \
-            --image us-docker.pkg.dev/zippy-rarity-468010-a3/cloudrun:latest \
+            --image us-docker.pkg.dev/zippy-rarity-468010-a3/cloudrun/test:latest \
             --region us-central1 \
             --platform managed \
             --allow-unauthenticated \
