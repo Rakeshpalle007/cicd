@@ -26,14 +26,14 @@ jobs:
 
       - name: Build and Push Docker image
         run: |
-          IMAGE_NAME=gcr.io/zippy-rarity-468010-a3/my-app
+          IMAGE_NAME=us-central1-docker.pkg.dev/zippy-rarity-468010-a3/cloudrun
           docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
 
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy my-app \
-            --image=gcr.io/zippy-rarity-468010-a3/my-app \
+            --image=us-central1-docker.pkg.dev/zippy-rarity-468010-a3/cloudrun \
             --region=us-central1 \
             --platform=managed \
             --allow-unauthenticated
