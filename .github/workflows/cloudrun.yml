@@ -3,23 +3,25 @@ name: Deploy to Cloud Run
 on:
   push:
     branches:
-      - main  # or your deployment branch
+      - main  # or your preferred branch
+
 env:
   REGION: us-central1
   REPOSITORY: cloudrun
   IMAGE: us-central1-docker.pkg.dev/zippy-rarity-468010-a3/cloudrun/app-image
+
 jobs:
   deploy:
-    name: Deploy to Google Cloud Run
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
+        uses: google-github-actions/setup-gcloud@v1
         with:
+          version: 'latest'
           project_id: zippy-rarity-468010-a3
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
@@ -34,8 +36,8 @@ jobs:
 
       - name: Deploy to Cloud Run
         run: |
-          gcloud run deploy test \
-            ----image $IMAGE:$GITHUB_SHA \
-            --region=us-central1 \
-            --platform=managed \
+          gcloud run deploy ${{ secrets.CLOUD_RUN_SERVICE }} \
+            --image $IMAGE:$GITHUB_SHA \
+            --region $REGION \
+            --platform managed \
             --allow-unauthenticated
