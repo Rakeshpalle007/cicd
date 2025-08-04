@@ -4,7 +4,10 @@ on:
   push:
     branches:
       - main  # or your deployment branch
-
+env:
+  REGION: us-central1
+  REPOSITORY: cloudrun
+  IMAGE: us-central1-docker.pkg.dev/zippy-rarity-468010-a3/cloudrun/app-image
 jobs:
   deploy:
     name: Deploy to Google Cloud Run
@@ -21,19 +24,18 @@ jobs:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
 
-      - name: Configure Docker for GCR
-        run: gcloud auth configure-docker
+      - name: Configure Docker to use the gcloud CLI
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
 
-      - name: Build and Push Docker image
+      - name: Build and push Docker image
         run: |
-          IMAGE_NAME=us-central1-docker.pkg.dev/zippy-rarity-468010-a3/cloudrun
-          docker build -t $IMAGE_NAME .
-          docker push $IMAGE_NAME
+          docker build -t $IMAGE:$GITHUB_SHA .
+          docker push $IMAGE:$GITHUB_SHA
 
       - name: Deploy to Cloud Run
         run: |
-          gcloud run deploy my-app \
-            --image=us-central1-docker.pkg.dev/zippy-rarity-468010-a3/cloudrun \
+          gcloud run deploy test \
+            ----image $IMAGE:$GITHUB_SHA \
             --region=us-central1 \
             --platform=managed \
             --allow-unauthenticated
