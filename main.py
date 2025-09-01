@@ -4,4 +4,4 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "Hello, World from App Engine!"
+    return "Hello, World from App Engine and datadog!"
