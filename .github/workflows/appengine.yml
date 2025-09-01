@@ -29,6 +29,6 @@ jobs:
 
     - name: Deploy to App Engine
       run: |
-        gcloud app deploy app.yaml --quiet --project=vijaya-23
+        gcloud app deploy app.yaml --quiet --project= vijaya-23
       env:
         GCP_PROJECT: vijaya-23
