@@ -3,11 +3,14 @@ import os
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route('/')
 def home():
-    return "Hello from App Engine!"
+    return '✅ App is working!'
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))  # ✅ Must use PORT
-    app.run(host="0.0.0.0", port=port)        # ✅ Must bind to 0.0.0.0
+@app.route('/healthz')
+def healthz():
+    return 'OK', 200
 
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 8080))  # required for App Engine
+    app.run(host='0.0.0.0', port=port)        # bind to external host
