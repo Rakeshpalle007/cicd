@@ -1,7 +1,11 @@
-runtime: python310
-service: test
+runtime: python39
 
-entrypoint: gunicorn -b :8080 main:app  # adjust to your app
+entrypoint: gunicorn -b :$PORT main:app
 
 automatic_scaling:
-  max_instances: 5
+  min_instances: 1
+  max_instances: 3
+
+handlers:
+  - url: /.*
+    script: auto
