@@ -21,7 +21,7 @@ jobs:
       - name: Set up Cloud SDK
         uses: 'google-github-actions/setup-gcloud@v2'
         with:
-          project_id: zippy-rarity-468010-a3
+          project_id: vijaya-23
           export_default_credentials: true
 
       - name: 'Install gcloud beta'
@@ -33,16 +33,16 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t us-docker.pkg.dev/zippy-rarity-468010-a3/cloudrun/dev:latest .
+          docker build -t us-docker.pkg.dev/vijaya-23/cloudrun/dev:latest .
 
       - name: Push Docker image
         run: |
-          docker push us-docker.pkg.dev/zippy-rarity-468010-a3/cloudrun/dev:latest
+          docker push us-docker.pkg.dev/vijaya-23/cloudrun/dev:latest
 
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy application \
-            --image us-docker.pkg.dev/zippy-rarity-468010-a3/cloudrun/dev:latest \
+            --image us-docker.pkg.dev/vijaya-23/cloudrun/dev:latest \
             --region us-central1 \
             --platform managed \
             --allow-unauthenticated \
