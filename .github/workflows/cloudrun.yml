@@ -46,6 +46,6 @@ jobs:
             --region us-central1 \
             --platform managed \
             --allow-unauthenticated \
-            --project zippy-rarity-468010-a3
+            --project vijaya-23
 
 
