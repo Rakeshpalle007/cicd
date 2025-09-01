@@ -1,5 +1,5 @@
 runtime: python311
-servicename: main
+service: main
 
 entrypoint: gunicorn -b :8080 main:app
 
