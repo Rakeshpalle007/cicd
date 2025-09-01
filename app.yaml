@@ -1,2 +1,7 @@
 runtime: python310
 service: test
+
+entrypoint: gunicorn -b :8080 main:app  # adjust to your app
+
+automatic_scaling:
+  max_instances: 5
